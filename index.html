@@ -284,12 +284,12 @@
         <div id="screen-login" class="screen active">
             <h2>SYSTEM AUTHORIZATION</h2>
             
-            <!-- Fixed the login form structure for mobile click/enter issue -->
-            <form onsubmit="return checkKey(event)" style="display: flex; flex-direction: column; gap: 18px; width: 100%;">
-                <input type="password" id="access-key" placeholder="Enter Access Key..." autocomplete="off">
+            <!-- Removed the <form> tag completely to prevent ANY page reloads -->
+            <div style="display: flex; flex-direction: column; gap: 18px; width: 100%;">
+                <input type="password" id="access-key" placeholder="Enter Access Key..." autocomplete="off" onkeyup="handleEnter(event)">
                 <div id="login-error" class="error-msg">ACCESS DENIED: INVALID KEY</div>
-                <button type="submit" class="btn">DECRYPT & ENTER</button>
-            </form>
+                <button class="btn" onclick="checkKey()">DECRYPT & ENTER</button>
+            </div>
 
         </div>
 
@@ -448,10 +448,15 @@
             document.getElementById(screenId).classList.add('active');
         }
 
-        // Updated checkKey function to properly handle form submission without refreshing
-        function checkKey(event) {
-            event.preventDefault(); // This is the magic line that stops the page refresh!
-            
+        // Listens to keyboard inputs
+        function handleEnter(event) {
+            // keyCode 13 is the generic code for the Enter key, handles mobile keyboard well
+            if (event.key === 'Enter' || event.keyCode === 13) {
+                checkKey();
+            }
+        }
+
+        function checkKey() {
             const keyInput = document.getElementById('access-key').value;
             const key = keyInput.trim().toUpperCase(); 
             const error = document.getElementById('login-error');
@@ -463,7 +468,6 @@
                 error.style.display = 'block';
                 document.getElementById('access-key').value = ''; 
             }
-            return false; // Backup prevention for older mobile browsers
         }
 
         function startModule(moduleName) {
@@ -495,5 +499,4 @@
             userData.model = document.getElementById('device-model').value;
             userData.ram = parseInt(document.getElementById('device-ram').value);
 
-            if (!userData.brand || !userData.model || isNaN(userData.ram)) {
-   
+            if (!userData.brand || !userData.model || isNaN(use
