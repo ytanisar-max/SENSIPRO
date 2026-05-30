@@ -99,13 +99,6 @@
             animation: fadeIn 0.4s ease-in-out;
         }
 
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            width: 100%;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
@@ -156,6 +149,7 @@
             position: relative;
             overflow: hidden;
             animation: cyberpunk-rgb 4s linear infinite;
+            width: 100%;
         }
 
         .btn:hover {
@@ -289,11 +283,11 @@
         <!-- Screen 1: Login -->
         <div id="screen-login" class="screen active">
             <h2>SYSTEM AUTHORIZATION</h2>
-            <form class="login-form" onsubmit="event.preventDefault(); checkKey();">
-                <input type="password" id="access-key" placeholder="Enter Access Key..." autocomplete="off">
+            <div style="display: flex; flex-direction: column; gap: 18px; width: 100%;">
+                <input type="password" id="access-key" placeholder="Enter Access Key..." autocomplete="off" onkeydown="handleEnter(event)">
                 <div id="login-error" class="error-msg">ACCESS DENIED: INVALID KEY</div>
-                <button type="submit" class="btn">DECRYPT & ENTER</button>
-            </form>
+                <button class="btn" onclick="checkKey()">DECRYPT & ENTER</button>
+            </div>
         </div>
 
         <!-- Screen 2: Dashboard -->
@@ -451,16 +445,25 @@
             document.getElementById(screenId).classList.add('active');
         }
 
+        function handleEnter(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevents page reload on mobile keyboards
+                checkKey();
+            }
+        }
+
         function checkKey() {
-            // .trim() removes extra spaces, .toUpperCase() makes it case insensitive (ani89 or ANI89 both work)
-            const key = document.getElementById('access-key').value.trim().toUpperCase();
+            const keyInput = document.getElementById('access-key').value;
+            // Removed spaces and converted to uppercase to ensure case-insensitive matching
+            const key = keyInput.trim().toUpperCase(); 
             const error = document.getElementById('login-error');
+            
             if (key === "ANI89") {
                 error.style.display = 'none';
                 showScreen('screen-dashboard');
             } else {
                 error.style.display = 'block';
-                document.getElementById('access-key').value = '';
+                document.getElementById('access-key').value = ''; // Reset input on wrong attempt
             }
         }
 
@@ -494,13 +497,4 @@
             userData.ram = parseInt(document.getElementById('device-ram').value);
 
             if (!userData.brand || !userData.model || isNaN(userData.ram)) {
-                alert("Please fill in Brand, Model, and RAM correctly.");
-                return;
-            }
-
-            showScreen('screen-terminal');
-            runTerminalAnimation();
-        }
-
-        function runTerminalAnimation() {
-  
+                alert("Please fill in Brand,
