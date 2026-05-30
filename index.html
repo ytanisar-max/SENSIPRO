@@ -14,7 +14,7 @@
             --text-main: #ffffff;
             --text-dim: #a0a0a0;
             --terminal-green: #00ff2a;
-            --card-bg: rgba(15, 10, 25, 0.85);
+            --card-bg: rgba(10, 5, 20, 0.85);
         }
 
         * {
@@ -35,21 +35,18 @@
             min-height: 100vh;
             overflow-x: hidden;
             background-image: 
-                linear-gradient(rgba(176, 38, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(176, 38, 255, 0.05) 1px, transparent 1px);
             background-size: 40px 40px;
         }
 
-        /* RGB Border Animation */
-        @keyframes rgb-border {
-            0% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; } /* Red */
-            15% { border-color: #ffffff; box-shadow: 0 0 10px #ffffff; } /* White */
-            30% { border-color: #00ff00; box-shadow: 0 0 10px #00ff00; } /* Green */
-            45% { border-color: #00ffff; box-shadow: 0 0 10px #00ffff; } /* Cyan */
-            60% { border-color: #0000ff; box-shadow: 0 0 10px #0000ff; } /* Blue */
-            75% { border-color: #ff00ff; box-shadow: 0 0 10px #ff00ff; } /* Purple */
-            90% { border-color: #ffff00; box-shadow: 0 0 10px #ffff00; } /* Yellow */
-            100% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; } /* Red */
+        /* Futuristic Cyberpunk RGB Border Animation */
+        @keyframes cyberpunk-rgb {
+            0% { border-color: #00f3ff; box-shadow: 0 0 15px #00f3ff; } /* Cyan */
+            25% { border-color: #bc13fe; box-shadow: 0 0 15px #bc13fe; } /* Neon Purple */
+            50% { border-color: #ff007f; box-shadow: 0 0 15px #ff007f; } /* Hot Pink */
+            75% { border-color: #00ffcc; box-shadow: 0 0 15px #00ffcc; } /* Mint Green */
+            100% { border-color: #00f3ff; box-shadow: 0 0 15px #00f3ff; } /* Cyan */
         }
 
         /* Header */
@@ -65,15 +62,15 @@
             font-size: 4rem;
             font-weight: 900;
             color: transparent;
-            -webkit-text-stroke: 2px var(--neon-purple);
-            text-shadow: 0 0 15px rgba(176, 38, 255, 0.6);
+            -webkit-text-stroke: 2px var(--neon-cyan);
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
             letter-spacing: 8px;
             animation: pulse 2s infinite alternate;
         }
 
         @keyframes pulse {
-            0% { text-shadow: 0 0 10px var(--neon-purple); }
-            100% { text-shadow: 0 0 25px var(--neon-purple), 0 0 15px var(--neon-cyan); -webkit-text-stroke: 2px var(--neon-cyan); }
+            0% { text-shadow: 0 0 10px var(--neon-cyan); }
+            100% { text-shadow: 0 0 25px var(--neon-cyan), 0 0 15px var(--neon-purple); -webkit-text-stroke: 2px var(--neon-purple); }
         }
 
         /* Main Container */
@@ -81,14 +78,14 @@
             width: 95%;
             max-width: 600px;
             background: var(--card-bg);
-            border: 2px solid #ff0000;
+            border: 2px solid #00f3ff;
             padding: 35px;
             border-radius: 12px;
             backdrop-filter: blur(10px);
             position: relative;
             z-index: 10;
             margin-top: 80px;
-            animation: rgb-border 5s linear infinite;
+            animation: cyberpunk-rgb 6s linear infinite;
         }
 
         .screen {
@@ -100,6 +97,13 @@
         .screen.active {
             display: flex;
             animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            width: 100%;
         }
 
         @keyframes fadeIn {
@@ -123,24 +127,24 @@
             width: 100%;
             padding: 14px;
             background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #ff0000;
+            border: 2px solid #00f3ff;
             color: var(--text-main);
             font-family: 'Share Tech Mono', monospace;
             font-size: 1.1rem;
             border-radius: 6px;
             outline: none;
             transition: 0.3s;
-            animation: rgb-border 4s linear infinite reverse;
+            animation: cyberpunk-rgb 5s linear infinite reverse;
         }
 
         input:focus, select:focus {
-            background: rgba(20, 20, 20, 0.9);
+            background: rgba(20, 20, 30, 0.9);
         }
 
         .btn {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             color: var(--text-main);
-            border: 2px solid #ff0000;
+            border: 2px solid #bc13fe;
             padding: 15px;
             font-size: 1.1rem;
             font-family: 'Orbitron', sans-serif;
@@ -151,12 +155,13 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            animation: rgb-border 3s linear infinite;
+            animation: cyberpunk-rgb 4s linear infinite;
         }
 
         .btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--neon-cyan);
         }
 
         .error-msg {
@@ -178,7 +183,7 @@
 
         .dash-card {
             background: rgba(0, 0, 0, 0.6);
-            border: 2px solid #ff0000;
+            border: 2px solid #00f3ff;
             padding: 20px;
             text-align: center;
             border-radius: 8px;
@@ -188,7 +193,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            animation: rgb-border 6s linear infinite;
+            animation: cyberpunk-rgb 7s linear infinite alternate;
         }
 
         .dash-card:hover {
@@ -202,7 +207,7 @@
             margin-bottom: 8px;
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 1px;
-            text-shadow: 0 0 8px rgba(255,255,255,0.5);
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.6);
         }
         
         .dash-card p {
@@ -212,8 +217,8 @@
 
         /* Terminal */
         .terminal {
-            background: #020202;
-            border: 2px solid #ff0000;
+            background: #020205;
+            border: 2px solid #00f3ff;
             padding: 15px;
             height: 220px;
             overflow-y: auto;
@@ -221,7 +226,7 @@
             font-size: 0.95rem;
             border-radius: 6px;
             text-align: left;
-            animation: rgb-border 4s linear infinite;
+            animation: cyberpunk-rgb 5s linear infinite;
         }
 
         .terminal p { margin: 6px 0; text-shadow: 0 0 5px var(--terminal-green); }
@@ -234,33 +239,33 @@
         }
 
         .stat-box {
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px solid #ff0000;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #00f3ff;
             padding: 12px;
             border-radius: 6px;
             text-align: center;
-            animation: rgb-border 5s linear infinite alternate;
+            animation: cyberpunk-rgb 6s linear infinite reverse;
         }
 
         .stat-label { font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; }
-        .stat-value { font-size: 1.4rem; font-weight: bold; color: var(--text-main); margin-top: 5px; text-shadow: 0 0 10px rgba(255,255,255,0.5);}
+        .stat-value { font-size: 1.4rem; font-weight: bold; color: var(--text-main); margin-top: 5px; text-shadow: 0 0 10px rgba(0, 243, 255, 0.6);}
 
-        /* Custom Information Boxes (Skills/Movement) */
+        /* Custom Information Boxes */
         .info-box {
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid #ff0000;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #bc13fe;
             padding: 15px;
             margin-bottom: 10px;
             border-radius: 6px;
             text-align: left;
-            animation: rgb-border 7s linear infinite;
+            animation: cyberpunk-rgb 7s linear infinite;
         }
         .info-box h3 {
             color: var(--text-main);
             font-size: 1.1rem;
             margin-bottom: 5px;
             font-family: 'Orbitron', sans-serif;
-            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+            text-shadow: 0 0 5px rgba(188, 19, 254, 0.6);
         }
         .info-box p {
             color: var(--text-dim);
@@ -268,7 +273,7 @@
             line-height: 1.5;
         }
         .info-box span {
-            color: var(--text-main);
+            color: var(--neon-cyan);
             font-weight: bold;
         }
     </style>
@@ -284,9 +289,11 @@
         <!-- Screen 1: Login -->
         <div id="screen-login" class="screen active">
             <h2>SYSTEM AUTHORIZATION</h2>
-            <input type="password" id="access-key" placeholder="Enter Access Key..." autocomplete="off" onkeypress="handleEnter(event)">
-            <div id="login-error" class="error-msg">ACCESS DENIED: INVALID KEY</div>
-            <button class="btn" onclick="checkKey()">DECRYPT & ENTER</button>
+            <form class="login-form" onsubmit="event.preventDefault(); checkKey();">
+                <input type="password" id="access-key" placeholder="Enter Access Key..." autocomplete="off">
+                <div id="login-error" class="error-msg">ACCESS DENIED: INVALID KEY</div>
+                <button type="submit" class="btn">DECRYPT & ENTER</button>
+            </form>
         </div>
 
         <!-- Screen 2: Dashboard -->
@@ -445,7 +452,8 @@
         }
 
         function checkKey() {
-            const key = document.getElementById('access-key').value;
+            // .trim() removes extra spaces, .toUpperCase() makes it case insensitive (ani89 or ANI89 both work)
+            const key = document.getElementById('access-key').value.trim().toUpperCase();
             const error = document.getElementById('login-error');
             if (key === "ANI89") {
                 error.style.display = 'none';
@@ -453,12 +461,6 @@
             } else {
                 error.style.display = 'block';
                 document.getElementById('access-key').value = '';
-            }
-        }
-
-        function handleEnter(event) {
-            if (event.key === 'Enter') {
-                checkKey();
             }
         }
 
@@ -501,5 +503,4 @@
         }
 
         function runTerminalAnimation() {
-            const termBox = document.getElementById('terminal-box');
-    
+  
