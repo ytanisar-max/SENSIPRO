@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENSIPRO - Advanced Sensitivity Generator</title>
+    <title>FFSERVICE - Advanced FF Optimization</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500;700;900&display=swap');
 
         :root {
-            --bg-color: #050505;
+            --bg-color: #070709;
             --neon-blue: #00f3ff;
-            --neon-purple: #bc13fe;
+            --neon-red: #ff003c;
             --text-main: #ffffff;
             --text-dim: #a0a0a0;
-            --terminal-green: #0f0;
+            --terminal-green: #00ff2a;
+            --card-bg: rgba(15, 15, 20, 0.85);
         }
 
         * {
@@ -32,289 +33,387 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
             background-image: 
-                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
-        /* Futuristic Header */
+        /* Header */
         header {
             position: absolute;
-            top: 20px;
+            top: 25px;
             text-align: center;
             width: 100%;
         }
 
-        .sensipro-title {
+        .title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 900;
             color: transparent;
-            -webkit-text-stroke: 1px var(--neon-blue);
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(0, 243, 255, 0.3);
-            letter-spacing: 5px;
-            animation: glitch 3s infinite alternate;
+            -webkit-text-stroke: 2px var(--neon-blue);
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.6);
+            letter-spacing: 6px;
+            animation: pulse 2s infinite alternate;
         }
 
-        @keyframes glitch {
-            0% { text-shadow: 2px 0 var(--neon-purple), -2px 0 var(--neon-blue); }
-            50% { text-shadow: -2px 0 var(--neon-purple), 2px 0 var(--neon-blue); }
-            100% { text-shadow: 2px 0 var(--neon-purple), -2px 0 var(--neon-blue); }
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px var(--neon-blue); }
+            100% { text-shadow: 0 0 25px var(--neon-blue), 0 0 10px var(--neon-red); }
         }
 
-        /* Container */
+        /* Main Container */
         .container {
-            width: 90%;
-            max-width: 500px;
-            background: rgba(10, 10, 10, 0.8);
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
-            padding: 30px;
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
+            width: 95%;
+            max-width: 600px;
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 243, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
+            padding: 35px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
             position: relative;
             z-index: 10;
+            margin-top: 80px;
         }
 
         .screen {
             display: none;
             flex-direction: column;
-            gap: 15px;
+            gap: 18px;
         }
 
         .screen.active {
             display: flex;
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             text-align: center;
             color: var(--neon-blue);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         /* Inputs & Buttons */
         input, select {
             width: 100%;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.5);
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.7);
             border: 1px solid var(--text-dim);
             color: var(--neon-blue);
             font-family: 'Share Tech Mono', monospace;
-            font-size: 1rem;
-            border-radius: 5px;
+            font-size: 1.1rem;
+            border-radius: 6px;
             outline: none;
             transition: 0.3s;
         }
 
         input:focus, select:focus {
             border-color: var(--neon-blue);
-            box-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.4);
         }
 
         .btn {
-            background: transparent;
+            background: rgba(0, 243, 255, 0.05);
             color: var(--neon-blue);
             border: 1px solid var(--neon-blue);
-            padding: 12px;
+            padding: 15px;
             font-size: 1.1rem;
             font-family: 'Orbitron', sans-serif;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 6px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn:hover {
             background: var(--neon-blue);
-            color: var(--bg-color);
-            box-shadow: 0 0 15px var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        .btn-red {
+            border-color: var(--neon-red);
+            color: var(--neon-red);
+        }
+        .btn-red:hover {
+            background: var(--neon-red);
+            box-shadow: 0 0 20px var(--neon-red);
+            color: #fff;
         }
 
         .error-msg {
-            color: #ff003c;
-            font-size: 0.9rem;
+            color: var(--neon-red);
+            font-size: 1rem;
             text-align: center;
             display: none;
-            text-shadow: 0 0 5px #ff003c;
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--neon-red);
+            margin-top: -5px;
         }
 
-        /* Terminal Styles */
+        /* Dashboard Grid */
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .dash-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dash-card:hover {
+            border-color: var(--neon-blue);
+            box-shadow: inset 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+
+        .dash-card h3 {
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .dash-card p {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* Terminal */
         .terminal {
-            background: #000;
+            background: #020202;
             border: 1px solid var(--terminal-green);
             padding: 15px;
-            height: 200px;
+            height: 220px;
             overflow-y: auto;
             color: var(--terminal-green);
-            font-size: 0.9rem;
-            border-radius: 5px;
-            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.2);
+            font-size: 0.95rem;
+            border-radius: 6px;
+            box-shadow: inset 0 0 15px rgba(0, 255, 42, 0.1);
             text-align: left;
         }
 
-        .terminal p { margin: 5px 0; }
-        
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            height: 15px;
-            background: var(--terminal-green);
-            animation: blink 0.8s infinite;
-        }
+        .terminal p { margin: 6px 0; }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* Result Grid */
+        /* Result Area */
         .result-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 12px;
         }
 
         .stat-box {
-            background: rgba(0, 243, 255, 0.1);
-            border: 1px solid rgba(0, 243, 255, 0.3);
-            padding: 10px;
-            border-radius: 5px;
+            background: rgba(0, 243, 255, 0.08);
+            border: 1px solid rgba(0, 243, 255, 0.4);
+            padding: 12px;
+            border-radius: 6px;
             text-align: center;
         }
 
-        .stat-label { font-size: 0.8rem; color: var(--text-dim); }
-        .stat-value { font-size: 1.2rem; font-weight: bold; color: var(--neon-blue); }
+        .stat-label { font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; }
+        .stat-value { font-size: 1.4rem; font-weight: bold; color: var(--neon-blue); margin-top: 5px; }
 
+        .hud-box {
+            margin-top: 15px; 
+            background: rgba(255, 0, 60, 0.05); 
+            border: 1px solid var(--neon-red);
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="sensipro-title">SENSIPRO</div>
+        <div class="title">FFSERVICE</div>
     </header>
 
     <div class="container">
         
+        <!-- Screen 1: Login -->
         <div id="screen-login" class="screen active">
-            <h2>SYSTEM ACCESS REQUIRED</h2>
+            <h2>SYSTEM AUTHORIZATION</h2>
             <input type="password" id="access-key" placeholder="Enter Access Key..." autocomplete="off">
-            <div id="login-error" class="error-msg">ACCESS DENIED: INCORRECT KEY</div>
-            <button class="btn" onclick="checkKey()">ENTER SYSTEM</button>
+            <div id="login-error" class="error-msg">ACCESS DENIED: INVALID KEY</div>
+            <button class="btn" onclick="checkKey()">DECRYPT & ENTER</button>
         </div>
 
+        <!-- Screen 2: Dashboard -->
+        <div id="screen-dashboard" class="screen">
+            <h2>COMMAND CENTER</h2>
+            <div class="dash-grid">
+                <div class="dash-card" onclick="startModule('sensi')">
+                    <h3 style="color: var(--neon-blue);">Aimbot Sensi</h3>
+                    <p>100% Headshot & No Recoil Data</p>
+                </div>
+                <div class="dash-card" onclick="startModule('hud')">
+                    <h3 style="color: var(--neon-red);">Pro HUD Setup</h3>
+                    <p>Optimized for Rusher Roles</p>
+                </div>
+                <div class="dash-card" onclick="startModule('gloo')">
+                    <h3 style="color: #bc13fe;">Fast Gloo Wall</h3>
+                    <p>Macro-level Speed Configs</p>
+                </div>
+                <div class="dash-card" onclick="startModule('ping')">
+                    <h3 style="color: var(--terminal-green);">Network Optimizer</h3>
+                    <p>Stable MS & DNS Routing</p>
+                </div>
+            </div>
+            <button class="btn btn-red" onclick="resetSystem()" style="margin-top: 10px;">LOGOUT</button>
+        </div>
+
+        <!-- Screen 3: Game Select (For Sensi Module) -->
         <div id="screen-game" class="screen">
-            <h2>SELECT TARGET MODULE</h2>
-            <button class="btn" onclick="selectGame('Free Fire')">FREE FIRE</button>
+            <h2>SELECT GAME CLIENT</h2>
+            <button class="btn" onclick="selectGame('Free Fire')">FREE FIRE (STANDARD)</button>
             <button class="btn" onclick="selectGame('Free Fire Max')">FREE FIRE MAX</button>
+            <button class="btn btn-red" onclick="showScreen('screen-dashboard')">BACK TO DASHBOARD</button>
         </div>
 
+        <!-- Screen 4: Platform -->
         <div id="screen-platform" class="screen">
-            <h2>SELECT PLATFORM</h2>
-            <button class="btn" onclick="selectPlatform('Mobile')">MOBILE</button>
-            <button class="btn" onclick="selectPlatform('PC')">PC (EMULATOR)</button>
+            <h2>SELECT HARDWARE</h2>
+            <button class="btn" onclick="selectPlatform('Mobile')">MOBILE DEVICE</button>
+            <button class="btn" onclick="selectPlatform('PC')">PC / EMULATOR</button>
             <button class="btn" onclick="selectPlatform('Laptop')">LAPTOP</button>
+            <button class="btn btn-red" onclick="showScreen('screen-game')">BACK</button>
         </div>
 
+        <!-- Screen 5: Specs -->
         <div id="screen-specs" class="screen">
             <h2 id="specs-title">DEVICE SPECIFICATIONS</h2>
             
-            <input type="text" id="device-brand" placeholder="Brand (e.g. Xiaomi, Apple, HP)" required>
-            <input type="text" id="device-model" placeholder="Model (e.g. Redmi 13 5G, iPhone 14)" required>
+            <input type="text" id="device-brand" placeholder="Brand (e.g. Xiaomi, Asus, HP)" required>
+            <input type="text" id="device-model" placeholder="Model (e.g. Redmi 13 5G)" required>
             
             <select id="device-ram">
-                <option value="" disabled selected>Select RAM</option>
-                <option value="2GB">2 GB</option>
-                <option value="4GB">4 GB</option>
-                <option value="6GB">6 GB</option>
-                <option value="8GB">8 GB</option>
-                <option value="12GB">12 GB</option>
-                <option value="16GB+">16 GB+</option>
+                <option value="" disabled selected>Select Total RAM</option>
+                <option value="2">2 GB</option>
+                <option value="3">3 GB</option>
+                <option value="4">4 GB</option>
+                <option value="6">6 GB</option>
+                <option value="8">8 GB</option>
+                <option value="12">12 GB</option>
+                <option value="16">16 GB+</option>
             </select>
 
             <select id="device-storage">
                 <option value="" disabled selected>Select Storage</option>
-                <option value="32GB">32 GB</option>
-                <option value="64GB">64 GB</option>
-                <option value="128GB">128 GB</option>
-                <option value="256GB">256 GB</option>
-                <option value="512GB+">512 GB+</option>
+                <option value="32">32 GB</option>
+                <option value="64">64 GB</option>
+                <option value="128">128 GB</option>
+                <option value="256">256 GB</option>
+                <option value="512">512 GB+</option>
             </select>
 
-            <input type="text" id="device-os" placeholder="OS/Processor (Optional, e.g. Android 14 / i5)">
+            <!-- Only shows for PC -->
+            <input type="text" id="device-os" placeholder="OS & Processor (e.g. Win 11, i5 12th Gen)" style="display: none;">
 
-            <button class="btn" onclick="startGeneration()">GENERATE SENSITIVITY</button>
+            <button class="btn" onclick="startGeneration()">INITIATE SCAN</button>
+            <button class="btn btn-red" onclick="showScreen('screen-platform')">BACK</button>
         </div>
 
+        <!-- Screen 6: Terminal -->
         <div id="screen-terminal" class="screen">
-            <h2>PROCESSING...</h2>
-            <div class="terminal" id="terminal-box">
-                </div>
+            <h2>EXTRACTING DATA...</h2>
+            <div class="terminal" id="terminal-box"></div>
         </div>
 
+        <!-- Screen 7: Sensi Results -->
         <div id="screen-result" class="screen">
-            <h2>OPTIMIZED SETTINGS FOUND</h2>
-            <div style="text-align: center; margin-bottom: 10px; font-size: 0.9rem; color: var(--terminal-green);">
-                Status: 100% Headshot + No Recoil Active
-            </div>
+            <h2>100% ACCURACY CONFIG FOUND</h2>
             
             <div class="result-grid">
-                <div class="stat-box"><div class="stat-label">General</div><div class="stat-value" id="res-general">100</div></div>
-                <div class="stat-box"><div class="stat-label">Red Dot</div><div class="stat-value" id="res-reddot">100</div></div>
-                <div class="stat-box"><div class="stat-label">2x Scope</div><div class="stat-value" id="res-2x">100</div></div>
-                <div class="stat-box"><div class="stat-label">4x Scope</div><div class="stat-value" id="res-4x">100</div></div>
-                <div class="stat-box"><div class="stat-label">Sniper Scope</div><div class="stat-value" id="res-sniper">100</div></div>
-                <div class="stat-box"><div class="stat-label">Free Look</div><div class="stat-value" id="res-freelook">100</div></div>
+                <div class="stat-box"><div class="stat-label">General</div><div class="stat-value" id="res-general">-</div></div>
+                <div class="stat-box"><div class="stat-label">Red Dot</div><div class="stat-value" id="res-reddot">-</div></div>
+                <div class="stat-box"><div class="stat-label">2x Scope</div><div class="stat-value" id="res-2x">-</div></div>
+                <div class="stat-box"><div class="stat-label">4x Scope</div><div class="stat-value" id="res-4x">-</div></div>
+                <div class="stat-box"><div class="stat-label">Sniper Scope</div><div class="stat-value" id="res-sniper">-</div></div>
+                <div class="stat-box"><div class="stat-label">Free Look</div><div class="stat-value" id="res-freelook">-</div></div>
             </div>
 
-            <div class="stat-box" style="margin-top: 10px; background: rgba(188, 19, 254, 0.1); border-color: var(--neon-purple);">
-                <div class="stat-label" style="color: var(--text-main);">Advanced HUD Analytics</div>
-                <div style="font-size: 0.9rem; margin-top: 5px; color: var(--neon-blue);">
-                    Fire Button Size: <span id="res-btn-size" style="font-weight: bold; color: #fff;">45%</span><br>
-                    Placement Angle: <span id="res-angle" style="font-weight: bold; color: #fff;">Bottom-Mid (X:45, Y:80)</span><br>
-                    Drag Speed: <span style="font-weight: bold; color: #fff;">Fast/Linear</span>
+            <div class="hud-box">
+                <div class="stat-label" style="color: var(--text-main);">Perfect HUD Analytics</div>
+                <div style="font-size: 1rem; margin-top: 8px; color: var(--neon-red); font-weight: bold;">
+                    Fire Button Size: <span id="res-btn-size" style="color: #fff;">-</span><br>
+                    Drag Technique: <span id="res-drag" style="color: #fff;">-</span><br>
+                    Placement: <span style="color: #fff;">Bottom Right (Low Y-Axis)</span>
                 </div>
             </div>
 
-            <button class="btn" style="margin-top: 15px;" onclick="resetSystem()">REBOOT SYSTEM</button>
+            <button class="btn" onclick="showScreen('screen-dashboard')">RETURN TO DASHBOARD</button>
+        </div>
+
+        <!-- Screen 8: Coming Soon / Generic Result -->
+        <div id="screen-generic" class="screen">
+            <h2 id="generic-title">MODULE</h2>
+            <div class="terminal" style="text-align: center; display: flex; flex-direction: column; justify-content: center; height: 150px;">
+                <p style="color: var(--neon-blue); font-size: 1.2rem;">CALCULATING PERFECT CONFIG...</p>
+                <p style="color: var(--text-dim); margin-top: 10px;">Applying server-side bypasses.</p>
+                <p style="color: var(--terminal-green); font-weight: bold; margin-top: 15px;">SUCCESSFULLY INJECTED!</p>
+            </div>
+            <button class="btn" onclick="showScreen('screen-dashboard')">RETURN TO DASHBOARD</button>
         </div>
 
     </div>
 
     <script>
-        // Data storage
-        let userData = { game: '', platform: '', brand: '', model: '', ram: '' };
+        let userData = { game: '', platform: '', brand: '', model: '', ram: 0 };
 
-        // Navigation Function
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
         }
 
-        // Login Logic
         function checkKey() {
             const key = document.getElementById('access-key').value;
             const error = document.getElementById('login-error');
             if (key === "ANI89") {
                 error.style.display = 'none';
-                showScreen('screen-game');
+                showScreen('screen-dashboard');
             } else {
                 error.style.display = 'block';
                 document.getElementById('access-key').value = '';
             }
         }
 
-        // Selections
+        function startModule(moduleName) {
+            if(moduleName === 'sensi') {
+                showScreen('screen-game');
+            } else {
+                let titles = {
+                    'hud': 'PRO HUD OPTIMIZER',
+                    'gloo': 'FAST GLOO WALL MACRO',
+                    'ping': 'NETWORK & PING OPTIMIZER'
+                };
+                document.getElementById('generic-title').innerText = titles[moduleName];
+                showScreen('screen-generic');
+            }
+        }
+
         function selectGame(game) {
             userData.game = game;
             showScreen('screen-platform');
@@ -322,44 +421,47 @@
 
         function selectPlatform(platform) {
             userData.platform = platform;
-            document.getElementById('specs-title').innerText = `${platform.toUpperCase()} SPECIFICATIONS`;
+            document.getElementById('specs-title').innerText = `${platform.toUpperCase()} SPECS`;
+            
+            // Show OS input ONLY for PC
+            if(platform === 'PC') {
+                document.getElementById('device-os').style.display = 'block';
+            } else {
+                document.getElementById('device-os').style.display = 'none';
+                document.getElementById('device-os').value = ''; 
+            }
             showScreen('screen-specs');
         }
 
-        // Generation Process
         function startGeneration() {
-            const brand = document.getElementById('device-brand').value;
-            const model = document.getElementById('device-model').value;
-            const ram = document.getElementById('device-ram').value;
+            userData.brand = document.getElementById('device-brand').value;
+            userData.model = document.getElementById('device-model').value;
+            userData.ram = parseInt(document.getElementById('device-ram').value);
 
-            if (!brand || !model || !ram) {
-                alert("Please fill in Brand, Model, and RAM to continue.");
+            if (!userData.brand || !userData.model || isNaN(userData.ram)) {
+                alert("Please fill in Brand, Model, and RAM correctly.");
                 return;
             }
-
-            userData.brand = brand;
-            userData.model = model;
-            userData.ram = ram;
 
             showScreen('screen-terminal');
             runTerminalAnimation();
         }
 
-        // Terminal Animation Logic
         function runTerminalAnimation() {
             const termBox = document.getElementById('terminal-box');
             termBox.innerHTML = ''; 
             
             const lines = [
-                "> SYSTEM INIT: SENSIPRO v2.0",
-                `> TARGET: ${userData.game} on ${userData.platform}`,
-                `> CONNECTING TO DATABASE FOR: ${userData.brand} ${userData.model}`,
-                `> ANALYZING HARDWARE SPECS (RAM: ${userData.ram})...`,
-                "> BYPASSING STANDARD DPI LIMITS...",
-                "> CALCULATING OPTIMAL RECOIL OFFSET...",
-                "> GENERATING 100% HEADSHOT + NO RECOIL SENSITIVITY...",
-                "> SYNCING HUD ANALYTICS...",
-                "> STATUS: SENSITIVITY FOUND SUCCESSFULLY!"
+                "> INITIATING FFSERVICE CORE...",
+                `> TARGETING: ${userData.game} API`,
+                `> ANALYZING HARDWARE: ${userData.platform.toUpperCase()} (${userData.brand} ${userData.model})`,
+                `> MEMORY CHECK: ${userData.ram}GB RAM DETECTED`,
+                "> BYPASSING DEFAULT RECOIL ALGORITHMS...",
+                "> MATCHING DPI TO SCREEN REFRESH RATE...",
+                "> EXTRACTING PRO RUSHER DATA SETS...",
+                "> CALIBRATING X & Y AXIS SENSITIVITY...",
+                "> LOCKING HEADSHOT PARAMETERS...",
+                "> DATA COMPILED SUCCESSFULLY!"
             ];
 
             let i = 0;
@@ -372,25 +474,70 @@
                     i++;
                 } else {
                     clearInterval(interval);
-                    setTimeout(showResults, 1000);
+                    setTimeout(calculateAndShowResults, 800);
                 }
-            }, 800); // 0.8 seconds per line for cool effect
+            }, 700); 
         }
 
-        // Result Logic
-        function showResults() {
-            // Pseudo-random but professional looking numbers based on platform
-            let genBase = userData.platform === 'Mobile' ? 95 : 80;
+        // Researched deterministic logic instead of random
+        function calculateAndShowResults() {
+            let gen, redDot, x2, x4, sniper, freeLook, btnSize, dragTech;
+
+            if (userData.platform === 'PC') {
+                // PC / Emulator requires low in-game sensi (Mouse handles DPI)
+                gen = 15 + userData.ram; // Higher RAM usually means better mouse/setup, minor tweak
+                redDot = 25;
+                x2 = 35;
+                x4 = 40;
+                sniper = 10;
+                freeLook = 50;
+                btnSize = "35%";
+                dragTech = "Linear Mouse Drag (X: 1.5, Y: 2.2)";
+            } else {
+                // Mobile and Laptop
+                if (userData.ram <= 4) {
+                    // Low End Device: Needs MAX sensitivity
+                    gen = 100;
+                    redDot = 100;
+                    x2 = 98;
+                    x4 = 95;
+                    sniper = 65;
+                    freeLook = 80;
+                    btnSize = "48%";
+                    dragTech = "Straight Hard Drag";
+                } else if (userData.ram > 4 && userData.ram <= 8) {
+                    // Mid Range: Balanced
+                    gen = 95;
+                    redDot = 92;
+                    x2 = 88;
+                    x4 = 85;
+                    sniper = 50;
+                    freeLook = 75;
+                    btnSize = "43%";
+                    dragTech = "U-Shape / J-Drag";
+                } else {
+                    // High End (12GB/16GB+): Screen is very smooth, slightly lower to avoid over-aiming
+                    gen = 88;
+                    redDot = 85;
+                    x2 = 80;
+                    x4 = 80;
+                    sniper = 45;
+                    freeLook = 70;
+                    btnSize = "40%";
+                    dragTech = "Smooth Light Drag";
+                }
+            }
+
+            // Constrain values to max 100
+            document.getElementById('res-general').innerText = Math.min(gen, 100);
+            document.getElementById('res-reddot').innerText = Math.min(redDot, 100);
+            document.getElementById('res-2x').innerText = Math.min(x2, 100);
+            document.getElementById('res-4x').innerText = Math.min(x4, 100);
+            document.getElementById('res-sniper').innerText = Math.min(sniper, 100);
+            document.getElementById('res-freelook').innerText = Math.min(freeLook, 100);
             
-            document.getElementById('res-general').innerText = genBase + Math.floor(Math.random() * 5);
-            document.getElementById('res-reddot').innerText = genBase - 2 + Math.floor(Math.random() * 7);
-            document.getElementById('res-2x').innerText = genBase - 5 + Math.floor(Math.random() * 10);
-            document.getElementById('res-4x').innerText = genBase - 10 + Math.floor(Math.random() * 10);
-            document.getElementById('res-sniper').innerText = 40 + Math.floor(Math.random() * 20);
-            document.getElementById('res-freelook').innerText = 70 + Math.floor(Math.random() * 30);
-            
-            let btnSizes = ['42%', '45%', '48%', '51%', '55%'];
-            document.getElementById('res-btn-size').innerText = btnSizes[Math.floor(Math.random() * btnSizes.length)];
+            document.getElementById('res-btn-size').innerText = btnSize;
+            document.getElementById('res-drag').innerText = dragTech;
 
             showScreen('screen-result');
         }
@@ -403,4 +550,3 @@
     </script>
 </body>
 </html>
-
