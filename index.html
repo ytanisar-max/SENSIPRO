@@ -283,11 +283,14 @@
         <!-- Screen 1: Login -->
         <div id="screen-login" class="screen active">
             <h2>SYSTEM AUTHORIZATION</h2>
-            <div style="display: flex; flex-direction: column; gap: 18px; width: 100%;">
-                <input type="password" id="access-key" placeholder="Enter Access Key..." autocomplete="off" onkeydown="handleEnter(event)">
+            
+            <!-- Fixed the login form structure for mobile click/enter issue -->
+            <form onsubmit="return checkKey(event)" style="display: flex; flex-direction: column; gap: 18px; width: 100%;">
+                <input type="password" id="access-key" placeholder="Enter Access Key..." autocomplete="off">
                 <div id="login-error" class="error-msg">ACCESS DENIED: INVALID KEY</div>
-                <button class="btn" onclick="checkKey()">DECRYPT & ENTER</button>
-            </div>
+                <button type="submit" class="btn">DECRYPT & ENTER</button>
+            </form>
+
         </div>
 
         <!-- Screen 2: Dashboard -->
@@ -424,7 +427,7 @@
                 <div class="info-box">
                     <h3>2. Zig-Zag Run (Jiggle)</h3>
                     <p><span>টেকনিক:</span> Sprint ➔ Rapidly swipe screen Left & Right.</p>
-                    <p style="color: var(--text-main);">ওপেন ফিল্ডে দৌড়ানোর সময় স্ক্রিন বারবার দ্রুত ডানদিকে এবং বাঁদিকে সোয়াইপ করো। এতে তোমার ক্যারেক্টার আঁকাবাঁকা দৌড়াবে এবং এনিমির ডিফল্ট এম (Aim) তোমার ওপর লক হতে পারবে না।</p>
+                    <p style="color: var(--text-main);">ওপেন ফিল্ডে দৌড়ানোর সময় স্ক্রিন বারবার দ্রুত ডানদিকে এবং বাঁদিকে সোয়াইপ করো। এতে তোমার ক্যারেক্টার আঁকাবাঁকা দৌড়াবে এবং এনিমির ডিফল্ট এম (Aim) তোমার ওপর লক হতে পারবে এন্টি-লক হয়ে যাবে।</p>
                 </div>
                 <div class="info-box">
                     <h3>3. Sit-Up Gloo Wall</h3>
@@ -445,16 +448,11 @@
             document.getElementById(screenId).classList.add('active');
         }
 
-        function handleEnter(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault(); // Prevents page reload on mobile keyboards
-                checkKey();
-            }
-        }
-
-        function checkKey() {
+        // Updated checkKey function to properly handle form submission without refreshing
+        function checkKey(event) {
+            event.preventDefault(); // This is the magic line that stops the page refresh!
+            
             const keyInput = document.getElementById('access-key').value;
-            // Removed spaces and converted to uppercase to ensure case-insensitive matching
             const key = keyInput.trim().toUpperCase(); 
             const error = document.getElementById('login-error');
             
@@ -463,8 +461,9 @@
                 showScreen('screen-dashboard');
             } else {
                 error.style.display = 'block';
-                document.getElementById('access-key').value = ''; // Reset input on wrong attempt
+                document.getElementById('access-key').value = ''; 
             }
+            return false; // Backup prevention for older mobile browsers
         }
 
         function startModule(moduleName) {
@@ -497,4 +496,4 @@
             userData.ram = parseInt(document.getElementById('device-ram').value);
 
             if (!userData.brand || !userData.model || isNaN(userData.ram)) {
-                alert("Please fill in Brand,
+   
