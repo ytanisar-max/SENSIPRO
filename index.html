@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FFSERVICE - Advanced FF Optimization</title>
+    <title>ANI - Pro FF Optimization</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@500;700;900&display=swap');
 
         :root {
-            --bg-color: #070709;
-            --neon-blue: #00f3ff;
-            --neon-red: #ff003c;
+            --bg-color: #050508;
+            --neon-cyan: #00f3ff;
+            --neon-purple: #b026ff;
             --text-main: #ffffff;
             --text-dim: #a0a0a0;
             --terminal-green: #00ff2a;
-            --card-bg: rgba(15, 15, 20, 0.85);
+            --card-bg: rgba(15, 10, 25, 0.85);
         }
 
         * {
@@ -35,8 +35,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             background-image: 
-                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(176, 38, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(176, 38, 255, 0.05) 1px, transparent 1px);
             background-size: 40px 40px;
         }
 
@@ -50,18 +50,18 @@
 
         .title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 900;
             color: transparent;
-            -webkit-text-stroke: 2px var(--neon-blue);
-            text-shadow: 0 0 15px rgba(0, 243, 255, 0.6);
-            letter-spacing: 6px;
+            -webkit-text-stroke: 2px var(--neon-purple);
+            text-shadow: 0 0 15px rgba(176, 38, 255, 0.6);
+            letter-spacing: 8px;
             animation: pulse 2s infinite alternate;
         }
 
         @keyframes pulse {
-            0% { text-shadow: 0 0 10px var(--neon-blue); }
-            100% { text-shadow: 0 0 25px var(--neon-blue), 0 0 10px var(--neon-red); }
+            0% { text-shadow: 0 0 10px var(--neon-purple); }
+            100% { text-shadow: 0 0 25px var(--neon-purple), 0 0 15px var(--neon-cyan); -webkit-text-stroke: 2px var(--neon-cyan); }
         }
 
         /* Main Container */
@@ -69,8 +69,8 @@
             width: 95%;
             max-width: 600px;
             background: var(--card-bg);
-            border: 1px solid rgba(0, 243, 255, 0.4);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
+            border: 1px solid rgba(176, 38, 255, 0.4);
+            box-shadow: 0 0 25px rgba(176, 38, 255, 0.15);
             padding: 35px;
             border-radius: 12px;
             backdrop-filter: blur(10px);
@@ -99,7 +99,7 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 1.4rem;
             text-align: center;
-            color: var(--neon-blue);
+            color: var(--neon-cyan);
             margin-bottom: 5px;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -111,7 +111,7 @@
             padding: 14px;
             background: rgba(0, 0, 0, 0.7);
             border: 1px solid var(--text-dim);
-            color: var(--neon-blue);
+            color: var(--neon-cyan);
             font-family: 'Share Tech Mono', monospace;
             font-size: 1.1rem;
             border-radius: 6px;
@@ -120,14 +120,14 @@
         }
 
         input:focus, select:focus {
-            border-color: var(--neon-blue);
+            border-color: var(--neon-cyan);
             box-shadow: 0 0 10px rgba(0, 243, 255, 0.4);
         }
 
         .btn {
             background: rgba(0, 243, 255, 0.05);
-            color: var(--neon-blue);
-            border: 1px solid var(--neon-blue);
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
             padding: 15px;
             font-size: 1.1rem;
             font-family: 'Orbitron', sans-serif;
@@ -141,36 +141,36 @@
         }
 
         .btn:hover {
-            background: var(--neon-blue);
+            background: var(--neon-cyan);
             color: #000;
-            box-shadow: 0 0 20px var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-cyan);
             transform: translateY(-2px);
         }
 
-        .btn-red {
-            border-color: var(--neon-red);
-            color: var(--neon-red);
+        .btn-purple {
+            border-color: var(--neon-purple);
+            color: var(--neon-purple);
         }
-        .btn-red:hover {
-            background: var(--neon-red);
-            box-shadow: 0 0 20px var(--neon-red);
+        .btn-purple:hover {
+            background: var(--neon-purple);
+            box-shadow: 0 0 20px var(--neon-purple);
             color: #fff;
         }
 
         .error-msg {
-            color: var(--neon-red);
+            color: #ff0055;
             font-size: 1rem;
             text-align: center;
             display: none;
             font-weight: bold;
-            text-shadow: 0 0 8px var(--neon-red);
+            text-shadow: 0 0 8px #ff0055;
             margin-top: -5px;
         }
 
         /* Dashboard Grid */
         .dash-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 15px;
         }
 
@@ -182,22 +182,28 @@
             border-radius: 8px;
             cursor: pointer;
             transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .dash-card:hover {
-            border-color: var(--neon-blue);
-            box-shadow: inset 0 0 15px rgba(0, 243, 255, 0.2);
+            border-color: var(--neon-purple);
+            box-shadow: inset 0 0 15px rgba(176, 38, 255, 0.2);
+            transform: scale(1.02);
         }
 
         .dash-card h3 {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: var(--text-main);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
         }
         
         .dash-card p {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--text-dim);
         }
 
@@ -225,30 +231,46 @@
         }
 
         .stat-box {
-            background: rgba(0, 243, 255, 0.08);
-            border: 1px solid rgba(0, 243, 255, 0.4);
+            background: rgba(176, 38, 255, 0.08);
+            border: 1px solid rgba(176, 38, 255, 0.4);
             padding: 12px;
             border-radius: 6px;
             text-align: center;
         }
 
         .stat-label { font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; }
-        .stat-value { font-size: 1.4rem; font-weight: bold; color: var(--neon-blue); margin-top: 5px; }
+        .stat-value { font-size: 1.4rem; font-weight: bold; color: var(--neon-cyan); margin-top: 5px; }
 
-        .hud-box {
-            margin-top: 15px; 
-            background: rgba(255, 0, 60, 0.05); 
-            border: 1px solid var(--neon-red);
+        /* Custom Information Boxes (Skills/Movement) */
+        .info-box {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 4px solid var(--neon-cyan);
             padding: 15px;
-            border-radius: 6px;
-            text-align: center;
+            margin-bottom: 10px;
+            border-radius: 0 6px 6px 0;
+            text-align: left;
+        }
+        .info-box h3 {
+            color: var(--neon-purple);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .info-box p {
+            color: var(--text-main);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .info-box span {
+            color: var(--neon-cyan);
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="title">FFSERVICE</div>
+        <div class="title">ANI</div>
     </header>
 
     <div class="container">
@@ -256,7 +278,7 @@
         <!-- Screen 1: Login -->
         <div id="screen-login" class="screen active">
             <h2>SYSTEM AUTHORIZATION</h2>
-            <input type="password" id="access-key" placeholder="Enter Access Key..." autocomplete="off">
+            <input type="password" id="access-key" placeholder="Enter Access Key (ANI89)..." autocomplete="off">
             <div id="login-error" class="error-msg">ACCESS DENIED: INVALID KEY</div>
             <button class="btn" onclick="checkKey()">DECRYPT & ENTER</button>
         </div>
@@ -266,43 +288,39 @@
             <h2>COMMAND CENTER</h2>
             <div class="dash-grid">
                 <div class="dash-card" onclick="startModule('sensi')">
-                    <h3 style="color: var(--neon-blue);">Aimbot Sensi</h3>
-                    <p>100% Headshot & No Recoil Data</p>
+                    <h3 style="color: var(--neon-cyan);">AIMBOT SENSI GENERATOR</h3>
+                    <p>Extract 100% Headshot & No Recoil Data</p>
                 </div>
-                <div class="dash-card" onclick="startModule('hud')">
-                    <h3 style="color: var(--neon-red);">Pro HUD Setup</h3>
-                    <p>Optimized for Rusher Roles</p>
+                <div class="dash-card" onclick="startModule('skills')">
+                    <h3 style="color: var(--neon-purple);">PRO SKILL COMBINATIONS</h3>
+                    <p>Best Character Abilities For Ranked</p>
                 </div>
-                <div class="dash-card" onclick="startModule('gloo')">
-                    <h3 style="color: #bc13fe;">Fast Gloo Wall</h3>
-                    <p>Macro-level Speed Configs</p>
-                </div>
-                <div class="dash-card" onclick="startModule('ping')">
-                    <h3 style="color: var(--terminal-green);">Network Optimizer</h3>
-                    <p>Stable MS & DNS Routing</p>
+                <div class="dash-card" onclick="startModule('movement')">
+                    <h3 style="color: var(--terminal-green);">MOVEMENT MASTER GUIDE</h3>
+                    <p>Freestyle, Zig-Zag & Advanced Tricks</p>
                 </div>
             </div>
-            <button class="btn btn-red" onclick="resetSystem()" style="margin-top: 10px;">LOGOUT</button>
+            <button class="btn btn-purple" onclick="resetSystem()" style="margin-top: 10px;">LOGOUT</button>
         </div>
 
-        <!-- Screen 3: Game Select (For Sensi Module) -->
+        <!-- Screen: Sensi - Game Select -->
         <div id="screen-game" class="screen">
             <h2>SELECT GAME CLIENT</h2>
             <button class="btn" onclick="selectGame('Free Fire')">FREE FIRE (STANDARD)</button>
             <button class="btn" onclick="selectGame('Free Fire Max')">FREE FIRE MAX</button>
-            <button class="btn btn-red" onclick="showScreen('screen-dashboard')">BACK TO DASHBOARD</button>
+            <button class="btn btn-purple" onclick="showScreen('screen-dashboard')">BACK TO DASHBOARD</button>
         </div>
 
-        <!-- Screen 4: Platform -->
+        <!-- Screen: Sensi - Platform -->
         <div id="screen-platform" class="screen">
             <h2>SELECT HARDWARE</h2>
             <button class="btn" onclick="selectPlatform('Mobile')">MOBILE DEVICE</button>
             <button class="btn" onclick="selectPlatform('PC')">PC / EMULATOR</button>
             <button class="btn" onclick="selectPlatform('Laptop')">LAPTOP</button>
-            <button class="btn btn-red" onclick="showScreen('screen-game')">BACK</button>
+            <button class="btn btn-purple" onclick="showScreen('screen-game')">BACK</button>
         </div>
 
-        <!-- Screen 5: Specs -->
+        <!-- Screen: Sensi - Specs -->
         <div id="screen-specs" class="screen">
             <h2 id="specs-title">DEVICE SPECIFICATIONS</h2>
             
@@ -329,20 +347,19 @@
                 <option value="512">512 GB+</option>
             </select>
 
-            <!-- Only shows for PC -->
             <input type="text" id="device-os" placeholder="OS & Processor (e.g. Win 11, i5 12th Gen)" style="display: none;">
 
             <button class="btn" onclick="startGeneration()">INITIATE SCAN</button>
-            <button class="btn btn-red" onclick="showScreen('screen-platform')">BACK</button>
+            <button class="btn btn-purple" onclick="showScreen('screen-platform')">BACK</button>
         </div>
 
-        <!-- Screen 6: Terminal -->
+        <!-- Screen: Terminal -->
         <div id="screen-terminal" class="screen">
             <h2>EXTRACTING DATA...</h2>
             <div class="terminal" id="terminal-box"></div>
         </div>
 
-        <!-- Screen 7: Sensi Results -->
+        <!-- Screen: Sensi Results -->
         <div id="screen-result" class="screen">
             <h2>100% ACCURACY CONFIG FOUND</h2>
             
@@ -355,27 +372,60 @@
                 <div class="stat-box"><div class="stat-label">Free Look</div><div class="stat-value" id="res-freelook">-</div></div>
             </div>
 
-            <div class="hud-box">
-                <div class="stat-label" style="color: var(--text-main);">Perfect HUD Analytics</div>
-                <div style="font-size: 1rem; margin-top: 8px; color: var(--neon-red); font-weight: bold;">
-                    Fire Button Size: <span id="res-btn-size" style="color: #fff;">-</span><br>
-                    Drag Technique: <span id="res-drag" style="color: #fff;">-</span><br>
-                    Placement: <span style="color: #fff;">Bottom Right (Low Y-Axis)</span>
-                </div>
+            <div class="info-box" style="margin-top: 15px; border-left-color: var(--neon-purple);">
+                <h3>Perfect HUD Analytics</h3>
+                <p>Fire Button Size: <span id="res-btn-size">-</span></p>
+                <p>Drag Technique: <span id="res-drag">-</span></p>
+                <p>Placement: <span>Bottom Right (Low Y-Axis)</span></p>
             </div>
 
             <button class="btn" onclick="showScreen('screen-dashboard')">RETURN TO DASHBOARD</button>
         </div>
 
-        <!-- Screen 8: Coming Soon / Generic Result -->
-        <div id="screen-generic" class="screen">
-            <h2 id="generic-title">MODULE</h2>
-            <div class="terminal" style="text-align: center; display: flex; flex-direction: column; justify-content: center; height: 150px;">
-                <p style="color: var(--neon-blue); font-size: 1.2rem;">CALCULATING PERFECT CONFIG...</p>
-                <p style="color: var(--text-dim); margin-top: 10px;">Applying server-side bypasses.</p>
-                <p style="color: var(--terminal-green); font-weight: bold; margin-top: 15px;">SUCCESSFULLY INJECTED!</p>
+        <!-- Screen: Skill Combos -->
+        <div id="screen-skills" class="screen">
+            <h2>PRO SKILL COMBINATIONS</h2>
+            <div style="max-height: 300px; overflow-y: auto; padding-right: 5px;">
+                <div class="info-box">
+                    <h3>1. Aggressive Rusher (CS/BR)</h3>
+                    <p><span>Tatsuya + Kelly + Hayato + Jota</span></p>
+                    <p>Tatsuya-এর স্পিড ড্যাশ দিয়ে এনিমির ওপর হঠাৎ পুশ করার জন্য। Kelly মুভমেন্ট স্পিড বাড়াবে, Hayato আর্মার পেনিট্রেশন দেবে এবং Jota নক করলে সাথে সাথে HP হিল করবে।</p>
+                </div>
+                <div class="info-box">
+                    <h3>2. Pro Sniper / Support</h3>
+                    <p><span>Rafael + Laura + Iris + Maro</span></p>
+                    <p>Rafael-এর সাইলেন্সার ইফেক্ট আর অটো ব্লিড-আউট। Laura স্কোপ করলে অ্যাকুরেসি বাড়াবে। Iris গ্লু ওয়ালের এপার থেকে মারতে সাহায্য করবে আর Maro দূরের এনিমিকে বেশি ড্যামেজ দেবে।</p>
+                </div>
+                <div class="info-box">
+                    <h3>3. Balanced Survivor (BR Rank)</h3>
+                    <p><span>Alok + Moco + Ford + Leon</span></p>
+                    <p>Alok কন্টিনিউয়াস স্পিড ও HP দেবে। Moco এনিমির লোকেশন ট্র্যাক করবে। Ford জোন ড্যামেজ কমাবে এবং Leon যেকোনো ফাইট থেকে সারভাইভ করলে অটোমেটিক HP রিকভার করবে।</p>
+                </div>
             </div>
-            <button class="btn" onclick="showScreen('screen-dashboard')">RETURN TO DASHBOARD</button>
+            <button class="btn btn-purple" onclick="showScreen('screen-dashboard')">BACK TO DASHBOARD</button>
+        </div>
+
+        <!-- Screen: Movement Guide -->
+        <div id="screen-movement" class="screen">
+            <h2>MOVEMENT MASTER GUIDE</h2>
+            <div style="max-height: 300px; overflow-y: auto; padding-right: 5px;">
+                <div class="info-box" style="border-left-color: var(--terminal-green);">
+                    <h3 style="color: var(--terminal-green);">1. Freestyle Movement</h3>
+                    <p><span>টেকনিক:</span> Fire ➔ Quick Weapon Switch ➔ Jump ➔ Screen Rotate.</p>
+                    <p>গুলি করার ঠিক পরেই ওয়েপন সুইচ বাটনে ট্যাপ করে সাথে সাথে জাম্প বাটন প্রেস করো এবং স্ক্রিন ডানে বা বামে ৩৬০ ডিগ্রি ঘোরাও। এটি তোমাকে এনিমির গুলি থেকে বাঁচাবে এবং প্রো প্লেয়ারের মতো দেখাবে।</p>
+                </div>
+                <div class="info-box" style="border-left-color: var(--terminal-green);">
+                    <h3 style="color: var(--terminal-green);">2. Zig-Zag Run (Jiggle)</h3>
+                    <p><span>টেকনিক:</span> Sprint ➔ Rapidly swipe screen Left & Right.</p>
+                    <p>ওপেন ফিল্ডে দৌড়ানোর সময় স্ক্রিন বারবার দ্রুত ডানদিকে এবং বাঁদিকে সোয়াইপ করো। এতে তোমার ক্যারেক্টার আঁকাবাঁকা দৌড়াবে এবং এনিমির ডিফল্ট এম (Aim) তোমার ওপর লক হতে পারবে না।</p>
+                </div>
+                <div class="info-box" style="border-left-color: var(--terminal-green);">
+                    <h3 style="color: var(--terminal-green);">3. Sit-Up Gloo Wall</h3>
+                    <p><span>টেকনিক:</span> Fire (Drag Up) ➔ Drag Down ➔ Gloo Wall ➔ Crouch ➔ Place.</p>
+                    <p>ফায়ার বাটন ওপরের দিকে ড্র্যাগ করে হেডশট মারার সাথে সাথে আঙুল না ছেড়ে নিচে টানো, বাঁ-হাত দিয়ে গ্লু ওয়াল সিলেক্ট করে ক্রাউচ (বসার) বাটনে ক্লিক করে গ্লু ওয়াল বসাও। এটি সবচেয়ে ফাস্ট গ্লু ওয়াল টেকনিক।</p>
+                </div>
+            </div>
+            <button class="btn btn-purple" onclick="showScreen('screen-dashboard')">BACK TO DASHBOARD</button>
         </div>
 
     </div>
@@ -401,17 +451,9 @@
         }
 
         function startModule(moduleName) {
-            if(moduleName === 'sensi') {
-                showScreen('screen-game');
-            } else {
-                let titles = {
-                    'hud': 'PRO HUD OPTIMIZER',
-                    'gloo': 'FAST GLOO WALL MACRO',
-                    'ping': 'NETWORK & PING OPTIMIZER'
-                };
-                document.getElementById('generic-title').innerText = titles[moduleName];
-                showScreen('screen-generic');
-            }
+            if(moduleName === 'sensi') showScreen('screen-game');
+            else if(moduleName === 'skills') showScreen('screen-skills');
+            else if(moduleName === 'movement') showScreen('screen-movement');
         }
 
         function selectGame(game) {
@@ -423,7 +465,6 @@
             userData.platform = platform;
             document.getElementById('specs-title').innerText = `${platform.toUpperCase()} SPECS`;
             
-            // Show OS input ONLY for PC
             if(platform === 'PC') {
                 document.getElementById('device-os').style.display = 'block';
             } else {
@@ -452,7 +493,7 @@
             termBox.innerHTML = ''; 
             
             const lines = [
-                "> INITIATING FFSERVICE CORE...",
+                "> INITIATING ANI CORE ENGINE...",
                 `> TARGETING: ${userData.game} API`,
                 `> ANALYZING HARDWARE: ${userData.platform.toUpperCase()} (${userData.brand} ${userData.model})`,
                 `> MEMORY CHECK: ${userData.ram}GB RAM DETECTED`,
@@ -460,93 +501,4 @@
                 "> MATCHING DPI TO SCREEN REFRESH RATE...",
                 "> EXTRACTING PRO RUSHER DATA SETS...",
                 "> CALIBRATING X & Y AXIS SENSITIVITY...",
-                "> LOCKING HEADSHOT PARAMETERS...",
-                "> DATA COMPILED SUCCESSFULLY!"
-            ];
-
-            let i = 0;
-            const interval = setInterval(() => {
-                if (i < lines.length) {
-                    const p = document.createElement('p');
-                    p.innerText = lines[i];
-                    termBox.appendChild(p);
-                    termBox.scrollTop = termBox.scrollHeight;
-                    i++;
-                } else {
-                    clearInterval(interval);
-                    setTimeout(calculateAndShowResults, 800);
-                }
-            }, 700); 
-        }
-
-        // Researched deterministic logic instead of random
-        function calculateAndShowResults() {
-            let gen, redDot, x2, x4, sniper, freeLook, btnSize, dragTech;
-
-            if (userData.platform === 'PC') {
-                // PC / Emulator requires low in-game sensi (Mouse handles DPI)
-                gen = 15 + userData.ram; // Higher RAM usually means better mouse/setup, minor tweak
-                redDot = 25;
-                x2 = 35;
-                x4 = 40;
-                sniper = 10;
-                freeLook = 50;
-                btnSize = "35%";
-                dragTech = "Linear Mouse Drag (X: 1.5, Y: 2.2)";
-            } else {
-                // Mobile and Laptop
-                if (userData.ram <= 4) {
-                    // Low End Device: Needs MAX sensitivity
-                    gen = 100;
-                    redDot = 100;
-                    x2 = 98;
-                    x4 = 95;
-                    sniper = 65;
-                    freeLook = 80;
-                    btnSize = "48%";
-                    dragTech = "Straight Hard Drag";
-                } else if (userData.ram > 4 && userData.ram <= 8) {
-                    // Mid Range: Balanced
-                    gen = 95;
-                    redDot = 92;
-                    x2 = 88;
-                    x4 = 85;
-                    sniper = 50;
-                    freeLook = 75;
-                    btnSize = "43%";
-                    dragTech = "U-Shape / J-Drag";
-                } else {
-                    // High End (12GB/16GB+): Screen is very smooth, slightly lower to avoid over-aiming
-                    gen = 88;
-                    redDot = 85;
-                    x2 = 80;
-                    x4 = 80;
-                    sniper = 45;
-                    freeLook = 70;
-                    btnSize = "40%";
-                    dragTech = "Smooth Light Drag";
-                }
-            }
-
-            // Constrain values to max 100
-            document.getElementById('res-general').innerText = Math.min(gen, 100);
-            document.getElementById('res-reddot').innerText = Math.min(redDot, 100);
-            document.getElementById('res-2x').innerText = Math.min(x2, 100);
-            document.getElementById('res-4x').innerText = Math.min(x4, 100);
-            document.getElementById('res-sniper').innerText = Math.min(sniper, 100);
-            document.getElementById('res-freelook').innerText = Math.min(freeLook, 100);
-            
-            document.getElementById('res-btn-size').innerText = btnSize;
-            document.getElementById('res-drag').innerText = dragTech;
-
-            showScreen('screen-result');
-        }
-
-        function resetSystem() {
-            document.getElementById('access-key').value = '';
-            showScreen('screen-login');
-        }
-
-    </script>
-</body>
-</html>
+    
